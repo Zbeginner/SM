@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.cafuc.cs.zzy.sm.mapper.TeacherMapper">
+    <resultMap id="BaseResultMap" type="cn.cafuc.cs.zzy.sm.model.Teacher" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name"></result>
+    </resultMap>
+    <select id="selectById" parameterType="Integer" resultMap="BaseResultMap">
+        select * from teacher where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from teacher
+    </select>
+</mapper>

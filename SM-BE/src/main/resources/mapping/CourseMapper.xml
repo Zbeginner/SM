@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.cafuc.cs.zzy.sm.mapper.CourseMapper">
+    <resultMap id="BaseResultMap" type="cn.cafuc.cs.zzy.sm.model.Course" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name"></result>
+        <result column="score" property="score"></result>
+    </resultMap>
+    <select id="selectById" parameterType="Integer" resultMap="BaseResultMap">
+        select * from courses where id=#{id}
+    </select>
+    <select id="selectByName" parameterType="String" resultMap="BaseResultMap">
+        select * from courses where name=#{name}
+    </select>
+    <select id="getCourse" resultMap="BaseResultMap">
+        select * from courses
+        <where>
+            <if test="name!='' and name!=null">
+                and name=#{name}
+            </if>
+        </where>
+    </select>
+    <insert id="addCourse" parameterType="cn.cafuc.cs.zzy.sm.model.Course"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id"
+    >
+        insert into courses values (default ,#{name},#{score})
+    </insert>
+    <delete id="delete">
+        delete from courses
+        where id=#{id}
+    </delete>
+</mapper>
+

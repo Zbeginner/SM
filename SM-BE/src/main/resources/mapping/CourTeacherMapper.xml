@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.cafuc.cs.zzy.sm.mapper.CourTeacherMapper">
+    <resultMap id="BaseResultMap" type="cn.cafuc.cs.zzy.sm.model.CourTeacher" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <association column="tea_id"
+                property="teacher"
+                javaType="cn.cafuc.cs.zzy.sm.model.Teacher"
+                select="cn.cafuc.cs.zzy.sm.mapper.TeacherMapper.selectById">
+        </association>
+        <association property="course"
+                     column="cou_id"
+                     javaType="cn.cafuc.cs.zzy.sm.model.Course"
+                     select="cn.cafuc.cs.zzy.sm.mapper.CourseMapper.selectById">
+        </association>
+    </resultMap>
+    <select id="selectInfo" resultMap="BaseResultMap">
+        select * from tea_cour
+        <where>
+            <if test="tid!=null">
+                and tea_id=#{tid}
+            </if>
+            <if test="cid!=null">
+                and cou_id=#{cid}
+            </if>
+        </where>
+    </select>
+    <insert id="addOne">
+        insert into tea_cour values (default ,#{tid},#{cid})
+    </insert>
+    <delete id="delete">
+        delete from tea_cour
+        where cou_id=#{id}
+    </delete>
+    <update id="modify" >
+        update tea_cour
+        set tea_id=#{tid}
+        where cou_id=#{cid}
+    </update>
+</mapper>
